@@ -1,19 +1,14 @@
-export const ADD_RECIPE = 'ADD_RECIPE'
-export const REMOVE_FROM_CALENDAR = 'REMOVE_FROM_CALENDAR'
+import * as ReadableAPI from '../utils/api.js'
 
-export function addRecipe({day, recipe, meal}){
-  return{
-    type: ADD_RECIPE,
-    recipe,
-    day,
-    meal,
-  }
-}
+export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 
-export function removeFromCalendar({day, meal}){
-  return{
-    type: REMOVE_FROM_CALENDAR,
-    day,
-    meal,
-  }
-}
+export const receivePosts = posts => ({
+	type: GET_ALL_POSTS,
+	posts
+});
+
+export const fetchAllPosts = () => dispatch => {
+	
+	ReadableAPI.getAllPosts()
+	.then(posts => dispatch(receivePosts(posts)))
+};	

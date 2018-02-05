@@ -2,21 +2,28 @@ import React, { Component } from 'react';
 import upvoteIcon from '../assets/images/upvote.png'
 import downvoteIcon from '../assets/images/downvote.png'
 import '../assets/App.css';
+import {timeConverter} from '../utils/helpers.js'
 
 class Post extends Component {
   render() {
+  	const {post} = this.props
     return (
-        <div id="post" className="post">
-	        <h3 className="title">Post Title</h3>
-	        <span>By </span>
-	        <span className="author">Author</span>
-	        <p className="description">Post Description</p>
-
-	        <img className="vote" src={upvoteIcon} alt="logo" />
-			<img className="vote" src={downvoteIcon} alt="logo" />
-	        <p className="votescore">1 Votes</p>
-	        <p className="comments">1 comments</p>
-	        <p className="timestamp">{new Date().toLocaleString()}</p>
+        <div id="post">
+        	<div className="header">
+		    	<span className="author">{post.author}</span>
+		    	<span className="content"> posted in </span>
+		    	<span className="category"> {post.category} </span>
+	    	</div>
+	    	<div className="body">
+		        <h3 className="title">{post.title}</h3>
+		        <p className="description">{post.body}</p>
+		        <img className="vote" src={upvoteIcon} alt="logo" />
+				<img className="vote" src={downvoteIcon} alt="logo" />
+		        <p className="votescore">{post.voteScore} Votes</p>
+		        <p className="comments">{post.commentCount} comments</p>
+		        <p className="timestamp">{timeConverter(post.timestamp)}</p>
+	        </div>
+	        <p/>
       	</div>
     );
   }

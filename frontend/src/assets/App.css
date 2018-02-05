@@ -50,7 +50,10 @@ body
 {
   margin: 0px;
   padding: 0px;
-  background: linear-gradient(#355C7D,#6C5B7B,#C06C84);
+  background: linear-gradient(#355C7D,#6C5B7B,#C06C84) no-repeat center center fixed;
+  background-position: center;
+  height: 100%;
+  background-size: cover;
   font-family: 'Questrial', sans-serif;
   font-size: 12pt;
   color: rgba(0,0,0,.6);
@@ -406,6 +409,7 @@ ul.contact li a:before
   margin-bottom: 0.20em;
   padding: 0.20em 0.9em;
   font-size: 3.5em;
+  color: white;
 }
 
 #logo a
@@ -837,14 +841,27 @@ ul.tools li a:before
   margin-bottom: 5px;
   clear: both;
   display: block;
-  padding: 10px;
   text-align: left;
   background-color: white;
   border-radius: 10px;
 }
 
+#post .header
+{
+  padding: 10px;
+}
+
+#post .body
+{
+  padding: 10px;
+  background-color:#E6E6FA;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
 #post .title
 {
+  padding: 10px;
   font-size: 25px;
   margin: 0;
   padding: 0;
@@ -852,12 +869,21 @@ ul.tools li a:before
 
 #post .description{
   margin-top: 5px;
-  font-size: 16px;
+  font-size: 18px;
 }
 
 #post .author
 {
-  color: blue;
+  color: black;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+#post .category
+{
+  color: #00008B;
+  font-size: 16px;
+  font-weight: bolder;
 }
 
 #post .timestamp
