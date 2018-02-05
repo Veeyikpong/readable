@@ -29,6 +29,15 @@ class App extends Component {
           </div>
 
           <button className='button'>Create</button>
+
+          <span className="categoryPlaceholder">Categories</span>
+          <select class='selectCategory'>
+            <option className="selectCategory_option" value="volvo">ALL</option>
+            <option className="selectCategory_option" value="volvo">Volvo</option>
+            <option className="selectCategory_option" value="saab">Saab</option>
+            <option className="selectCategory_option" value="mercedes">Mercedes</option>
+            <option className="selectCategory_option" value="audi">Audi</option>
+          </select>
           <button className="button-sorticon"/>
 
       

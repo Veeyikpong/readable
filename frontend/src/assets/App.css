@@ -97,13 +97,21 @@ a:hover
   text-decoration: none;
 }
 
-
 .container
 {
   margin: 0px auto;
   width: 1200px;
 }
 
+.categoryPlaceholder{
+  height: auto;
+  background-color: transparent;
+  color: white;
+  font-size: 22px;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+}
 
 /*********************************************************************************/
 /* Form Style                                                                    */
@@ -347,7 +355,30 @@ ul.contact li a:before
   margin-bottom: 10px;
   padding: 25px;
 }
-  
+
+/*********************************************************************************/
+/* Category dropdown                                                              */
+/*********************************************************************************/
+
+.selectCategory
+{
+  height: 50px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white; /* Green */
+  font-size: 20px;
+  border-radius: 5px;
+  margin-bottom: 10px;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.selectCategory_option
+{
+   color:black;
+}
+
 /*********************************************************************************/
 /* Heading Titles                                                                */
 /*********************************************************************************/
