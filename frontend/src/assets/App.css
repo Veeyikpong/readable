@@ -103,14 +103,39 @@ a:hover
   width: 1200px;
 }
 
-.categoryPlaceholder{
-  height: auto;
+.createPost{
+  float:left;
+  height: 45px;
   background-color: transparent;
   color: white;
-  font-size: 22px;
+  font-size: 20px;
   border-radius: 5px;
   padding: 5px;
   text-align: center;
+  border: 2px solid white; 
+}
+
+.categoryPlaceholder{
+  height: 45px;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  line-height: 35px;
+}
+
+.sortMethodPlaceholder{
+  float:right;
+  height: 45px;
+  background-color: transparent;
+  color: white;
+  font-size: 20px;
+  border-radius: 5px;
+  padding: 5px;
+  text-align: center;
+  line-height: 35px;
 }
 
 /*********************************************************************************/
@@ -306,22 +331,6 @@ ul.contact li a:before
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-.button
-{
-  float:left;
-  height: 50px;
-  background-color: transparent;
-  color: white;
-  border: 2px solid white; /* Green */
-  font-size: 20px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 25px;
-  line-height: 5px;
-  vertical-align: middle;
-  text-align: center;
-}
-
 .button:before
 {
   display: inline-block;
@@ -339,34 +348,40 @@ ul.contact li a:before
 {
 }
 
-.button-sorticon
-{
-  filter:brightness(0) invert(1);
-  background-image: url('./images/sort.png');
-  background-size: cover; /* To fill the dimensions of container (button), or */
-  float:right;
-  height: 50px;
-  width: auto;
-  background-color: transparent;
-  color: white;
-  border: 2px solid white; /* Green */
-  font-size: 20px;
-  border-radius: 5px;
-  margin-bottom: 10px;
-  padding: 25px;
-}
-
 /*********************************************************************************/
 /* Category dropdown                                                              */
 /*********************************************************************************/
 
 .selectCategory
 {
-  height: 50px;
+  height: 45px;
+  background-color: transparent;
+  color: white;
+  border: 2px solid white; 
+  font-size: 18px;
+  border-radius: 5px;
+  padding: 10px;
+  vertical-align: middle;
+  text-align: center;
+}
+
+.selectCategoryOption
+{
+   color:black;
+}
+
+/*********************************************************************************/
+/* Sort Method dropdown                                                          */
+/*********************************************************************************/
+
+.selectSortMethod
+{
+  float: right;
+  height: 45px;
   background-color: transparent;
   color: white;
   border: 2px solid white; /* Green */
-  font-size: 20px;
+  font-size: 18px;
   border-radius: 5px;
   margin-bottom: 10px;
   padding: 10px;
@@ -374,7 +389,7 @@ ul.contact li a:before
   text-align: center;
 }
 
-.selectCategory_option
+.selectSortMethodOption
 {
    color:black;
 }
