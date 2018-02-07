@@ -21,3 +21,19 @@ fetch(`${api}/categories`, { headers })
 export const fetchPostsByCategory = (category) =>
 fetch(`${api}/${category}/posts`, { headers })
 .then(res => res.json())	
+
+export const getComments = (postID) =>
+fetch(`${api}/posts/${postID}/comments`, { headers })
+.then(res => res.json())
+
+export const addComment = (data) =>
+fetch(`${api}/comments`,
+{
+  method: 'POST',
+  headers:{
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+ body: JSON.stringify(data)
+})
+.then(res => res.json())

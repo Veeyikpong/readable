@@ -32,9 +32,9 @@
     padding-bottom: 0px;
     position: fixed;
     top: 0; 
-  left: 0; 
-  right: 0; 
-  z-index: 300;
+    left: 0; 
+    right: 0; 
+    z-index: 300;
     box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, .175);
     background-color: #3d3325;
@@ -81,6 +81,7 @@ ol, ul
 p
 {
   line-height: 180%;
+  margin-bottom: 10px;
 }
 
 strong
@@ -331,21 +332,15 @@ ul.contact li a:before
 /* Button Style                                                                  */
 /*********************************************************************************/
 
-.button:before
+.button
 {
-  display: inline-block;
-  background: #8DCB89;
-  margin-right: 1em;
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  border-radius: 20px;
+  width: auto;
   text-align: center;
-  color: #272925;
-}
-
-.button-small
-{
+  height: auto;
+  background-color: #636FA4;
+  color: white;
+  font-size: 16px;
+  border-radius: 5px;  
 }
 
 /*********************************************************************************/
@@ -877,7 +872,6 @@ ul.tools li a:before
   color: #FFFFFF;
 }
 
-
 /*********************************************************************************/
 /* Post                                                                 */
 /*********************************************************************************/
@@ -888,7 +882,7 @@ ul.tools li a:before
   clear: both;
   display: block;
   text-align: left;
-  background-color: white;
+  background: white;
   border-radius: 10px;
 }
 
@@ -900,7 +894,7 @@ ul.tools li a:before
 #post .body
 {
   padding: 10px;
-  background-color:#E6E6FA;
+  background: linear-gradient(#D3CCE3,#E9E4F0) no-repeat center center fixed;
   border-bottom-left-radius: 10px;
   border-bottom-right-radius: 10px;
 }
@@ -956,6 +950,140 @@ ul.tools li a:before
 }
 
 /*********************************************************************************/
+/* Post Details                                                                  */
+/*********************************************************************************/
+#postDetails
+{
+  margin-top: 5px;
+  margin-bottom: 5px;
+  clear: both;
+  display: block;
+  text-align: left;
+}
+
+#postDetails .header
+{
+  padding: 10px;
+  background-color: white;
+  border-top-right-radius: 10px;
+  border-top-left-radius: 10px;
+}
+
+#postDetails .body
+{
+  padding: 10px;
+  background: linear-gradient(#D3CCE3,#E9E4F0) no-repeat center center fixed;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+}
+
+#postDetails .title
+{
+  padding: 10px;
+  font-size: 25px;
+  margin: 0;
+  padding: 0;
+}
+
+#postDetails .description{
+  margin-top: 5px;
+  font-size: 18px;
+}
+
+#postDetails .author
+{
+  color: black;
+  font-size: 18px;
+  font-weight: bolder;
+}
+
+#postDetails .category
+{
+  color: #00008B;
+  font-size: 16px;
+  font-weight: bolder;
+}
+
+#postDetails .timestamp
+{
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+}
+
+#postDetails .votescore
+{
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  color: green;
+}
+
+#postDetails .commentTitle
+{
+  font-weight: bold;
+  font-size: 18px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+#postDetails .addCommentTitle
+{
+  font-weight: bold;
+  font-size: 16px;
+  font-weight: bold;
+  color: black;
+  margin: 0;
+  padding: 0;
+}
+
+#postDetails .comments
+{
+  background: white;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 16px;
+  font-weight: bold;
+  margin-bottom: 5px;
+}
+
+#postDetails .commentInput
+{
+  background: white;
+  border-radius: 5px;
+  padding: 3px;
+  font-size: 16px;
+  margin-bottom: 5px;
+  width: 99%;
+}
+
+
+#postDetails p.commentAuthor
+{
+  background: white;
+  margin:0px;
+  font-size:18px;
+  font-weight: bold;
+  color:black;
+}
+
+#postDetails p.commentBody
+{
+  background: white;
+  margin:0px;
+  font-size: 16px;
+  font-weight: normal;
+}
+
+#postDetails p.comment
+{
+  background: white;
+  margin:0px;
+}
+
+/*********************************************************************************/
 /* Upvote and downvote icons                                                     */
 /*********************************************************************************/
 .vote
@@ -963,4 +1091,42 @@ ul.tools li a:before
   margin-right: 10px;
   height:25px;
   width:25px;
+}
+
+/*********************************************************************************/
+/* Modal                                                                         */
+/*********************************************************************************/
+.modal {
+  position: absolute;
+  top: 40px;
+  left: 200px;
+  right: 200px;
+  bottom: 40px;
+  border: 1px solid rgb(204, 204, 204);
+  background: linear-gradient(#a8c0ff,#3f2b96) no-repeat center center fixed;;
+  overflow: auto;
+  border-radius: 4px;
+  outline: none;
+  padding: 20px;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
+  min-width: 500px;
+}
+
+.overlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(255, 255, 255, 0.6);
+}
+
+/*********************************************************************************/
+/* Modal                                                                         */
+/*********************************************************************************/
+.closeIcon {
+  text-align: right;  
+  margin: 3px;
 }
