@@ -4,13 +4,16 @@ import '../assets/App.css';
 import PostList from './PostList.js'
 import {fetchAllPosts,fetchAllCategories,fetchPostsByCategory,changeSortMethod} from '../actions'
 import {connect} from 'react-redux'
+import { Router, Route, withRouter, Link } from 'react-router-dom';
+import {Redirect} from 'react-router'
 
 class App extends Component {
 
   state = {
     posts: [],
     categories: [],
-    sortMethod: ''
+    sortMethod: '',
+    selectedCategory:'/', //all 
   }
 
   componentWillMount()
@@ -19,12 +22,29 @@ class App extends Component {
      this.props.fetchAllCategories();
   }
 
+  filterPostByCategory(category){
+    const {posts} = this.props
+
+    return posts.filter(post => post.category === category)
+  }
+
+  updateDropdownValue= (category) =>{
+    this.setState(() => ({
+      selectedCategory: category,
+    }))
+  } 
+
+  redirect(history, event){
+      history.push(event.target.value)
+  }
+
   render() {
     const {posts, categories, sortMethod} = this.props
+    const {selectedCategory} = this.state
 
     return (
+    
       <div className="App">
-
         <div id="header" className="container">
           <div id="logo">
             <img src={logo} className="App-logo" alt="logo" />
@@ -32,10 +52,9 @@ class App extends Component {
           </div>
 
           <button className='createPost'>Create</button>
-
           <span className="categoryPlaceholder">Categories</span>
-          <select className='selectCategory' onChange={this.props.fetchPostsByCategory}>
-            <option className="selectCategoryOption" value="all">ALL</option>
+          <select className='selectCategory' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
+            <option className="selectCategoryOption" value="/">ALL</option>
           {categories && categories.length>0 && categories.map((category)=>(
             <option className="selectCategoryOption" key={category.path} value={category.path}>{category.name}</option>
           ))}
@@ -49,9 +68,14 @@ class App extends Component {
           </select>
           <span className='sortMethodPlaceholder'>Order By</span>
 
-          <PostList posts={posts} sortMethod={sortMethod}/>
+          <Route exact path = "/:category" render={({match})=>(
+            <PostList posts={this.filterPostByCategory(match.params.category)} sortMethod={sortMethod} category={match.params.category} updateDropdownValue={this.updateDropdownValue}/>)}/>
+
+          <Route exact path = "/" render={()=>(
+            <PostList posts={posts} sortMethod={sortMethod} updateDropdownValue={this.updateDropdownValue}/>)}/>
         </div>
       </div>
+  
     );
   }
 }
@@ -81,4 +105,4 @@ const mapDispatchToProps = (dispatch) => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(App);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

@@ -35,7 +35,7 @@ class Post extends Component {
   	const {openPostDetailsModal, activePost} = this.state
   	const {post} = this.props
     return (
-    	<div>
+    	<div id="post">
 	        <div id="post" onClick={()=>this.openPostDetailsModala(post)}>
 	        	<div className="header">
 			    	<span className="author">{post.author}</span>

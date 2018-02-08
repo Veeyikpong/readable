@@ -6,6 +6,14 @@ import {connect} from 'react-redux'
 
 class PostList extends Component {
 
+  componentWillMount(){
+      const {category, updateDropdownValue} = this.props
+      if(category){
+        updateDropdownValue(category)
+      }else{
+        updateDropdownValue('/')
+      }
+  }
 
   render() {
     const {posts, sortMethod} = this.props
@@ -33,7 +41,6 @@ class PostList extends Component {
 
     return (
       <div className="App">
-      
        {posts && posts.length>0 && posts.map((post)=>(
            <Post key={post.id} post={post}/>
         ))}
