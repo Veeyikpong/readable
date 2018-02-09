@@ -37,3 +37,42 @@ fetch(`${api}/comments`,
  body: JSON.stringify(data)
 })
 .then(res => res.json())
+
+export const fetchPostByID = (postID) =>
+fetch(`${api}/posts/${postID}`, { headers })
+.then(res => res.json())
+
+export const votePost = (postID, data) =>
+fetch(`${api}/posts/${postID}`,
+{
+  method: 'POST',
+  headers:{
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+ body: JSON.stringify(data)
+})
+.then(res => res.json())
+
+export const voteComment = (commentID, data) =>
+fetch(`${api}/comments/${commentID}`,
+{
+  method: 'POST',
+  headers:{
+      ...headers,
+      'Content-Type': 'application/json'
+    },
+ body: JSON.stringify(data)
+})
+.then(res => res.json())
+
+export const deleteComment = (commentID) =>
+fetch(`${api}/comments/${commentID}`,
+{
+  method: 'DELETE',
+  headers:{
+      ...headers,
+      'Content-Type': 'application/json'
+    }
+})
+.then(res => res.json())

@@ -1,71 +1,70 @@
 import React, { Component } from 'react';
-import upvoteIcon from '../assets/images/upvote.png'
-import downvoteIcon from '../assets/images/downvote.png'
+import Upvote from 'react-icons/lib/fa/thumbs-o-up'
+import Downvote from 'react-icons/lib/fa/thumbs-o-down'
 import '../assets/App.css';
 import {timeConverter} from '../utils/helpers.js'
-import Modal from 'react-modal'
 import PostDetails from './PostDetails.js'
+import {Link} from 'react-router-dom'
+import {votePost} from '../actions'
+import {connect} from 'react-redux'
 
 class Post extends Component {
+  upvote = (postID) => {
+  	const data = {
+    	option: 'upVote'
+    }
+    this.props.votePost(postID,data)
+  }	
 
-  componentWillMount() {
-	Modal.setAppElement('body');
-  }
-
-  state={
-    openPostDetailsModal: false,
-    activePost:[],
-  }
-
-  openPostDetailsModala = (post) => {
-  	console.log("open",post);
-    this.setState(() => ({
-      openPostDetailsModal: true,
-      activePost: post,
-    }))
-  }
-
-  closePostDetailsModal = () =>{
-    this.setState(() => ({
-      openPostDetailsModal: false,
-    }))
-  }
+  downvote = (postID) => {
+  	const data = {
+    	option: 'downVote'
+    }
+    this.props.votePost(postID,data)
+  }	
 
   render() {
-  	const {openPostDetailsModal, activePost} = this.state
-  	const {post} = this.props
+  	const {post,redirect} = this.props
     return (
     	<div id="post">
-	        <div id="post" onClick={()=>this.openPostDetailsModala(post)}>
+	        <div id="post">
 	        	<div className="header">
 			    	<span className="author">{post.author}</span>
 			    	<span className="content"> posted in </span>
 			    	<span className="category"> {post.category} </span>
 		    	</div>
 		    	<div className="body">
-			        <h3 className="title">{post.title}</h3>
+		    		<Link to={"/" + post.category + "/" + post.id} className="title">
+                        <h3>{post.title}</h3>
+                    </Link>
 			        <p className="description">{post.body}</p>
-			        <img className="vote" src={upvoteIcon} alt="logo" />
-					<img className="vote" src={downvoteIcon} alt="logo" />
+			        <Upvote size="30" className="vote" onClick={()=>{this.upvote(post.id)}}/>
+			        <Downvote size="30" className="vote" onClick={()=>{this.downvote(post.id)}}/>
 			        <p className="votescore">{post.voteScore} Votes</p>
 			        <p className="comments">{post.commentCount} comments</p>
 			        <p className="timestamp">{timeConverter(post.timestamp)}</p>
 		        </div>
 		        <p/>
 	      	</div>
-      		<Modal
-				className='modal'
-				overlayClassName='overlay'
-				isOpen={openPostDetailsModal}
-				onRequestClose={this.closePostDetailsModal}
-				contentLabel='Modal'>
-
-				<PostDetails key={activePost.id} post={activePost} closePostDetailsModal={this.closePostDetailsModal}/>
-			</Modal>
       	</div>
     );
   }
 }
 
-export default Post;
+
+const mapStateToProps = (state) => {
+  return { 
+    posts: state.posts
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    votePost : (postID, data) => {
+      dispatch(votePost(postID,data));
+    },
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post);
 

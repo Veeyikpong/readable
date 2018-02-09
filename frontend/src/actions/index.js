@@ -3,9 +3,13 @@ import * as ReadableAPI from '../utils/api.js'
 export const GET_ALL_POSTS = 'GET_ALL_POSTS'
 export const GET_ALL_CATEGORIES = 'GET_ALL_CATEGORIES'
 export const FETCH_POSTS_BY_CATEGORY = 'FETCH_POSTS_BY_CATEGORY'
+export const FETCH_POST_BY_ID = 'FETCH_POST_BY_ID'
 export const CHANGE_SORT_METHOD = 'CHANGE_SORT_METHOD'
 export const GET_COMMENTS = 'GET_COMMENTS'
 export const ADD_COMMENT = 'ADD_COMMENT'
+export const VOTE_POST = 'VOTE_POST'
+export const VOTE_COMMENT = 'VOTE_COMMENT'
+export const DELETE_COMMENT = 'DELETE_COMMENT'
 
 export const fetchAllPosts = () => dispatch => {
 	ReadableAPI.getAllPosts()
@@ -52,7 +56,6 @@ export const receivePostsByCategory = posts => ({
 	posts
 })
 
-
 export const changeSortMethod = sortMethod => ({
 	type: CHANGE_SORT_METHOD,
 	sortMethod
@@ -67,3 +70,44 @@ export const addCommentSuccess = comment => ({
 	comment
 })
   
+export const fetchPostByID = (postID) => dispatch =>{
+	ReadableAPI.fetchPostByID(postID).then(post=>
+	dispatch(receivePostsByID(post)))
+}
+
+export const receivePostsByID = post => ({
+	type: FETCH_POST_BY_ID,
+	post
+})
+
+export const votePost = (postID, data) => dispatch =>{
+	ReadableAPI.votePost(postID, data).then(post=>
+	dispatch(votePostSuccess(post.id, data.option)))
+}
+
+export const votePostSuccess = (postID, voteType) => ({
+	type: VOTE_POST,
+	postID,
+	voteType
+})
+
+export const voteComment = (commentID, data) => dispatch =>{
+	ReadableAPI.voteComment(commentID, data).then(comment=>
+	dispatch(voteCommentSuccess(comment.id, data.option)))
+}
+
+export const voteCommentSuccess = (commentID, voteType) => ({
+	type: VOTE_COMMENT,
+	commentID,
+	voteType
+})
+
+export const deleteComment = (commentID) => dispatch =>{
+	ReadableAPI.deleteComment(commentID)
+	.then(comment=> dispatch(deleteCommentSuccess(comment)))
+}
+
+export const deleteCommentSuccess = (comment) => ({
+	type: DELETE_COMMENT,
+	comment
+})

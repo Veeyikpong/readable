@@ -57,6 +57,7 @@ body
   font-family: 'Questrial', sans-serif;
   font-size: 12pt;
   color: rgba(0,0,0,.6);
+  text-align: center;
 }
 
 
@@ -64,12 +65,11 @@ h1, h2, h3
 {
   margin: 0;
   padding: 0;
-  color: #404040;
 }
 
 p, ol, ul
 {
-  margin-top: 0;
+  color: black;
 }
 
 ol, ul
@@ -96,6 +96,11 @@ strong
 a:hover
 {
   text-decoration: none;
+}
+
+.errorMessage{
+  color: white;
+  text-align: center;
 }
 
 .container
@@ -1043,7 +1048,7 @@ ul.tools li a:before
 {
   background: white;
   border-radius: 5px;
-  padding: 3px;
+  padding: 5px;
   font-size: 16px;
   font-weight: bold;
   margin-bottom: 5px;
@@ -1083,14 +1088,19 @@ ul.tools li a:before
   margin:0px;
 }
 
+#postDetails p.commentVote
+{
+  font-weight: bold;
+  margin: 0;
+  padding: 0;
+  color: green;
+}
 /*********************************************************************************/
 /* Upvote and downvote icons                                                     */
 /*********************************************************************************/
 .vote
 {
   margin-right: 10px;
-  height:25px;
-  width:25px;
 }
 
 /*********************************************************************************/
@@ -1126,7 +1136,33 @@ ul.tools li a:before
 /*********************************************************************************/
 /* Modal                                                                         */
 /*********************************************************************************/
-.closeIcon {
-  text-align: right;  
+.homeIcon {
+  width: 100px;
+  text-align: center;  
   margin: 3px;
+  filter:brightness(0) invert(1);
+  color: white;
+  border: solid white;
+  border-radius: 10px;
+}
+
+/*********************************************************************************/
+/* Empty Post Icon                                                                */
+/*********************************************************************************/
+.emptyIcon {
+  width: 150px;
+  height: 150px;
+  display: inline-block;
+  background-size: contain;
+  background-position: center;
+  filter:brightness(0) invert(1);
+  border: none;
+  outline: none;
+}
+
+/*********************************************************************************/
+/* Delete    Icon                                                                */
+/*********************************************************************************/
+.deleteIcon {
+  float:right;
 }
