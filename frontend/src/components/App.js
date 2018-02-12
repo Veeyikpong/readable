@@ -5,8 +5,7 @@ import PostList from './PostList.js'
 import PostDetails from './PostDetails.js'
 import {fetchAllPosts,fetchAllCategories,fetchPostsByCategory} from '../actions'
 import {connect} from 'react-redux'
-import { Router, Route, withRouter, Link } from 'react-router-dom';
-import {Redirect} from 'react-router'
+import {Route, withRouter } from 'react-router-dom';
 
 class App extends Component {
 

@@ -1,16 +1,18 @@
 import React, { Component } from 'react';
-import logo from '../assets/images/logo.ico';
 import '../assets/App.css';
 import Post from './Post.js'
 import {connect} from 'react-redux'
 import emptyIcon from '../assets/images/empty.png'
-import {changeSortMethod} from '../actions';
+import SortMethod from './SortMethod.js'
+import CreatePost from './CreatePost.js'
+import Modal from 'react-modal'
 
 class PostList extends Component {
 
   state = {
       posts: [],
-      sortMethod: ''
+      sortMethod: '',
+      createPostModalOpen: false,
   }
 
   componentWillMount(){
@@ -23,8 +25,22 @@ class PostList extends Component {
     }
   }
 
+  openCreatePostModal = () => { 
+    console.log('open')
+    this.setState(() => ({
+      createPostModalOpen: true,
+    }))
+  }
+
+  closeCreatePostModal = () =>{
+    this.setState(() => ({
+      createPostModalOpen: false,
+    }))
+  }
+
   render() {
     const {posts, sortMethod} = this.props
+    const {createPostModalOpen} = this.state
 
     if(posts && posts.length>0){
       switch(sortMethod){
@@ -40,39 +56,51 @@ class PostList extends Component {
         case 'votescore_desc':
           posts.sort((a, b) => (b.voteScore-a.voteScore))
         break;
+        case 'comments_asc':
+          posts.sort((a, b) => (a.commentCount-b.commentCount))
+        break;
+        case 'comments_desc':
+          posts.sort((a, b) => (b.commentCount-a.commentCount))
+        break;
         default:{
           posts.sort((a, b) => (a.timestamp-b.timestamp))
         }
       }
     }
 
-    if(posts && posts.length>0){
-      return(
-        <div className="App">
-        <button className='createPost'>Create</button>
-        <select className='selectSortMethod' onChange={this.props.changeSortMethod}>
-          <option className="selectSortMethodOption" value="timestamp_asc">Date : Ascending</option>
-          <option className="selectSortMethodOption" value="timestamp_desc">Date : Descending</option>
-          <option className="selectSortMethodOption" value="votescore_asc">Votescore : Ascending</option>
-          <option className="selectSortMethodOption" value="votescore_desc">Votescore : Descending</option>
-        </select>
-        <span className='sortMethodPlaceholder'>Order By</span>
-        {
-          posts.map((post)=>(
-             <Post key={post.id} post={post}/>
-          ))
-        }        
-        </div>
-      );
-    }
-    return (
+    return(
       <div>
-        <p className="errorMessage">
-          <img src={emptyIcon} className="emptyIcon"/>
-        </p>
-        <p className="errorMessage">
-        Oops. There is currently no posts in this category.
-        </p>
+        <button className='createPost' onClick={()=>{this.openCreatePostModal()}}>New Post</button>
+        {posts && posts.length>0?
+          (
+            <div className="App">
+              <SortMethod/>
+              {
+                posts.map((post)=>(
+                   <Post key={post.id} post={post}/>
+                ))
+              }        
+            </div>
+          ):
+          (
+             <div id="errorMessage">
+              <img src={emptyIcon} className="emptyIcon" alt="empty"/>
+              <p>
+                Oops. There is currently no posts in this category.
+              </p>
+            </div>
+          )
+        }
+      
+        <Modal
+          className='createPostModal'
+          overlayClassName='createPostOverlay'
+          isOpen={createPostModalOpen}
+          onRequestClose={this.closeCreatePostModal}
+          contentLabel='Modal'>
+
+          <CreatePost closeCreatePostModal={this.closeCreatePostModal}/>
+        </Modal>
       </div>
     );
   }
@@ -85,12 +113,4 @@ const mapStateToProps = (state) => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    changeSortMethod : (event) => {
-      dispatch(changeSortMethod(event.target.value));
-    }
-  }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(PostList);
+export default connect(mapStateToProps, null)(PostList);

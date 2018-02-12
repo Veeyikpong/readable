@@ -60,7 +60,6 @@ body
   text-align: center;
 }
 
-
 h1, h2, h3
 {
   margin: 0;
@@ -84,11 +83,6 @@ p
   margin-bottom: 10px;
 }
 
-strong
-{
-}
-
-
 {
   color: #2056ac;
 }
@@ -98,9 +92,18 @@ a:hover
   text-decoration: none;
 }
 
-.errorMessage{
+#errorMessage{
   color: white;
   text-align: center;
+  clear:both;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  display: block;
+  text-align: center;
+}
+
+#errorMessage p{
+  color: white;
 }
 
 .container
@@ -116,9 +119,8 @@ a:hover
   color: white;
   font-size: 20px;
   border-radius: 5px;
-  padding: 5px;
-  text-align: center;
-  border: 2px solid white; 
+  padding: 10px;
+  text-align: center;  
 }
 
 .categoryPlaceholder{
@@ -339,13 +341,30 @@ ul.contact li a:before
 
 .button
 {
+  margin: 5px;
   width: auto;
   text-align: center;
   height: auto;
-  background-color: #636FA4;
+  background-color: #0094d9;
   color: white;
-  font-size: 16px;
+  font-size: 20px;
   border-radius: 5px;  
+  padding-left: 10px;
+  padding-right: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.button:hover
+{
+  background-color: #4682B4;
+  color: white;
+}
+
+.button:active
+{
+  background-color: #00008B;
+  color: white;
 }
 
 /*********************************************************************************/
@@ -896,6 +915,10 @@ ul.tools li a:before
   padding: 10px;
 }
 
+#post h3{
+  color: #614385;
+}
+
 #post .body
 {
   padding: 10px;
@@ -974,6 +997,12 @@ ul.tools li a:before
   border-top-left-radius: 10px;
 }
 
+#postDetails span.home
+{
+  font-weight: bold;
+  padding: 10px;  
+}
+
 #postDetails .body
 {
   padding: 10px;
@@ -1040,7 +1069,8 @@ ul.tools li a:before
   font-size: 16px;
   font-weight: bold;
   color: black;
-  margin: 0;
+  margin-top: 20px;
+  margin-bottom: 0px;
   padding: 0;
 }
 
@@ -1103,25 +1133,33 @@ ul.tools li a:before
   margin-right: 10px;
 }
 
+.vote:hover{
+  color:blue;
+}
+
+.vote:active{
+  color:#00008B;
+}
+
 /*********************************************************************************/
 /* Modal                                                                         */
 /*********************************************************************************/
 .modal {
+  height: 100px;
   position: absolute;
-  top: 40px;
+  top: 200px;
   left: 200px;
   right: 200px;
-  bottom: 40px;
+  bottom: 200px;
   border: 1px solid rgb(204, 204, 204);
-  background: linear-gradient(#a8c0ff,#3f2b96) no-repeat center center fixed;;
   overflow: auto;
   border-radius: 4px;
   outline: none;
-  padding: 20px;
   padding-top: 0px;
   border-radius: 10px;
-  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);
-  min-width: 500px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);  
+  background-color: white;
+  padding: 20px;
 }
 
 .overlay {
@@ -1134,7 +1172,7 @@ ul.tools li a:before
 }
 
 /*********************************************************************************/
-/* Modal                                                                         */
+/* Home Icon                                                                     */
 /*********************************************************************************/
 .homeIcon {
   width: 100px;
@@ -1161,8 +1199,177 @@ ul.tools li a:before
 }
 
 /*********************************************************************************/
-/* Delete    Icon                                                                */
+/* Delete Icon                                                                   */
 /*********************************************************************************/
 .deleteIcon {
   float:right;
+}
+
+.editIcon {
+  float:right;
+  margin-top: 2px;
+}
+
+/*********************************************************************************/
+/* Edit Comment                                                                  */
+/*********************************************************************************/
+.editCommentModal{
+  height: auto;
+  position: absolute;
+  top: 230px;
+  left: 200px;
+  right: 200px;
+  bottom: 230px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  outline: none;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);  
+  background-color: white;
+}
+
+.editCommentOverlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.8);
+}
+
+#editComment {
+  text-align: left;
+  padding: 10px;
+}
+
+#editComment input{
+  width: 90%;
+  margin-left: 5px;
+  font-size: 20px;
+}
+
+#editComment p.author{
+  font-weight: bold;  
+  margin-left: 5px;
+}
+
+/*********************************************************************************/
+/* Create Post                                                                   */
+/*********************************************************************************/
+
+.createPostModal{
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 220px;
+  left: 250px;
+  right: 250px;
+  bottom: 220px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  outline: none;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);  
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.createPostOverlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+#createPost{
+  width: auto;
+  height: auto;
+}
+
+#createPost input{
+  outline:none;
+  border:none;
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid #aaa;
+}
+
+#createPost select{
+  outline:none;
+  border:none;
+  width: 100%;
+  height: 30px;
+  border-bottom: 1px solid #aaa;
+}
+
+/*********************************************************************************/
+/* Edit Post                                                                     */
+/*********************************************************************************/
+
+.editPostModal{
+  width: auto;
+  height: auto;
+  position: absolute;
+  top: 200px;
+  left: 250px;
+  right: 250px;
+  bottom: 200px;
+  border: 1px solid rgb(204, 204, 204);
+  border-radius: 4px;
+  outline: none;
+  padding-top: 0px;
+  border-radius: 10px;
+  box-shadow: 0 3px 8px 0 rgba(0,0,0,.24), 0 3px 12px 0 rgba(0,0,0,.12);  
+  background-color: white;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+
+.editPostOverlay {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  bottom: 0px;
+  background-color: rgba(0, 0, 0, 0.9);
+}
+
+#editPost{
+  width: auto;
+  height: auto;
+  text-align: left;
+  padding: 10px;
+}
+
+#editPost input{
+  outline:none;
+  border:none;
+  height: 30px;
+  border-bottom: 1px solid #aaa;
+  width: 100%;
+  margin-left: 5px;
+  margin-bottom: 10px;
+}
+
+#editPost .title{
+  outline:none;
+  border:none;
+  height: 30px;
+  font-weight: bold;
+  color: black;
+  text-align: left;  
+  margin:5px;  
+}
+
+#editPost select{
+  outline:none;
+  border:none;
+  width: 90%;
+  height: 30px;
+  border-bottom: 1px solid #aaa;
 }

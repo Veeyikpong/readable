@@ -10,6 +10,10 @@ export const ADD_COMMENT = 'ADD_COMMENT'
 export const VOTE_POST = 'VOTE_POST'
 export const VOTE_COMMENT = 'VOTE_COMMENT'
 export const DELETE_COMMENT = 'DELETE_COMMENT'
+export const EDIT_COMMENT = 'EDIT_COMMENT'
+export const CREATE_POST = 'CREATE_POST'
+export const DELETE_POST = 'DELETE_POST'
+export const EDIT_POST = 'EDIT_POST'
 
 export const fetchAllPosts = () => dispatch => {
 	ReadableAPI.getAllPosts()
@@ -110,4 +114,45 @@ export const deleteComment = (commentID) => dispatch =>{
 export const deleteCommentSuccess = (comment) => ({
 	type: DELETE_COMMENT,
 	comment
+})
+
+export const editComment = (commentID, data) => dispatch =>{
+	ReadableAPI.editComment(commentID, data).then(comment=>
+	dispatch(editCommentSuccess(comment.id, data.body)))
+}
+
+export const editCommentSuccess = (commentID, newMessage) => ({
+	type: EDIT_COMMENT,
+	commentID,
+	newMessage
+})
+
+export const createPost = (data) => dispatch =>{
+	ReadableAPI.createPost(data).then(post=>
+	dispatch(createPostSuccess(post)))
+}
+
+export const createPostSuccess = (post) => ({
+	type: CREATE_POST,
+	post
+})
+
+export const deletePost = (postID) => dispatch =>{
+	ReadableAPI.deletePost(postID).then(post=>
+	dispatch(deletePostSuccess(post)))
+}
+
+export const deletePostSuccess = (post) => ({
+	type: DELETE_POST,
+	post
+})
+
+export const editPost = (postID, data) => dispatch =>{
+	ReadableAPI.editPost(postID, data).then(post=>
+	dispatch(editPostSuccess(post)))
+}
+
+export const editPostSuccess = (post) => ({
+	type: EDIT_POST,
+	post
 })

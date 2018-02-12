@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import logo from '../assets/images/logo.ico';
 import '../assets/App.css';
-import Post from './Post.js'
 import EditComment from './EditComment.js'
 import {connect} from 'react-redux'
 import {fetchPostByID, fetchCommentsByPost, addComment, deleteComment} from '../actions'
@@ -31,6 +29,9 @@ class PostDetails extends Component {
 
   componentWillMount()
   {
+
+    Modal.setAppElement('body');
+
     //if can get the post from state
     if(this.props.post){
       this.props.fetchCommentsByPost(this.props.post.id);   
@@ -53,9 +54,12 @@ class PostDetails extends Component {
   }
 
   submitComment=(event, postID)=>{
-    const{commentAuthor,commentMessage,openEditCommentModal, activeComment} = this.state
+    const{commentAuthor,commentMessage} = this.state
 
-    if (event.key === 'Enter' && commentAuthor.length>0 && commentMessage.length>0) {
+    if (event.key === 'Enter' || event.type==='click'){
+      if(commentAuthor.length<=0 || commentMessage.length<=0){
+        window.alert('Comment author/message cannot be empty.')
+      }else{
         const data = {
           id: uuidv1(),
           timestamp: Date.now(),
@@ -66,14 +70,19 @@ class PostDetails extends Component {
           deleted: false,
           parentDeleted: false
         }
-      
-      this.props.addComment(data)
 
-      document.getElementById('commentAuthor').value= "" ;
-      document.getElementById('commentMessage').value= "" ;
-      document.getElementById('commentAuthor').focus();
+        this.props.addComment(data)
 
-      scroll.scrollToBottom();
+        document.getElementById('commentAuthor').value= "" ;
+        document.getElementById('commentMessage').value= "" ;
+        document.getElementById('commentAuthor').focus();
+
+        scroll.scrollToBottom();
+        this.setState({
+          commentMessage: '',
+          commentAuthor:''
+        });
+      }
     }
   }
 
@@ -106,7 +115,11 @@ class PostDetails extends Component {
   }
 
   deleteComment = (commentID) => {
-    this.props.deleteComment(commentID)
+    var x = window.confirm('Confirm to delete comment?')
+
+    if(x === true){
+      this.props.deleteComment(commentID)
+    }
   }
 
   openEditCommentModal = (comment) => {
@@ -136,8 +149,7 @@ class PostDetails extends Component {
         return (
           <div id="postDetails">
              <div className="homeIcon">
-              <HomeIcon size={30} onClick={this.props.closePostDetailsModal}/>
-              <span><Link to={"/"}>Home</Link></span>
+              <span className="home"><Link to={"/"}><HomeIcon size={30}/>HOME</Link></span>
              </div>
              <div className="header">
                 <span className="author">{posts.author}</span>
@@ -156,7 +168,7 @@ class PostDetails extends Component {
                   {comments && comments.length>0 && comments.map((comment)=>(
                     <div className="comments" key={comment.id}>
                       <DeleteIcon size={30} className="deleteIcon" onClick={()=>{this.deleteComment(comment.id)}}/>
-                      <EditIcon size={30} className="deleteIcon" onClick={()=>{this.openEditCommentModal(comment)}}/>
+                      <EditIcon size={30} className="editIcon" onClick={()=>{this.openEditCommentModal(comment)}}/>
                       <p className="commentAuthor">{comment.author}</p>
                       <p className="commentBody">{comment.body}</p>
                       <p className="commentVote">{comment.voteScore} votes</p>
@@ -167,12 +179,12 @@ class PostDetails extends Component {
                   <p className="addCommentTitle">Add your comment here</p>
                   <input type='text' className = "commentInput" placeholder="Author" id="commentAuthor" onChange={this.updateCommentAuthor}/>
                   <input type='text' className = "commentInput" placeholder="Message" id="commentMessage" onChange={this.updateCommentMessage} onKeyPress={(event)=>this.submitComment(event,posts.id)}/>
-                  <button className='button'>Submit</button>
+                  <button className='button' onClick={(event)=>this.submitComment(event,posts.id)}>Submit</button>
               </div>
 
               <Modal
-                className='modal'
-                overlayClassName='overlay'
+                className='editCommentModal'
+                overlayClassName='editCommentOverlay'
                 isOpen={editCommandModalOpen}
                 onRequestClose={this.closeEditCommentModal}
                 contentLabel='Modal'>

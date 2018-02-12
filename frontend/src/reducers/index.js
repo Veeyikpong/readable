@@ -48,6 +48,22 @@ function posts(state=[],action){
             commentCount: p.commentCount - 1
           }
       });
+    case 'CREATE_POST':
+      return [...state,action.post]
+    case 'DELETE_POST':
+      return state.filter(post=>post.id!==action.post.id)
+    case 'EDIT_POST':
+      return state.map(post => {
+        if (post.id !== action.post.id) {
+          return post;
+        }
+
+       return {
+            ...post,
+            title: action.post.title,
+            body: action.post.body
+        }
+      });
     default:
       return state;
   }
@@ -97,6 +113,17 @@ function comments(state=[],action){
       });
     case 'DELETE_COMMENT':
       return state.filter(c=>c.id!==action.comment.id)
+    case 'EDIT_COMMENT':
+      return state.map(c => {
+        if (c.id !== action.commentID) {
+          return c;
+        }
+
+       return {
+            ...c,
+            body: action.newMessage
+        }
+      });
     default:
       return state;
   }
