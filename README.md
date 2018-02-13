@@ -1,4 +1,4 @@
-# Readable
+﻿# Readable
 This is Readable Project developed by PONG VEE YIK @ Udacity React Programme.
 
 ## How to launch the project
@@ -38,6 +38,27 @@ npm install
 node server.js
 ```
 ** Wait for installation **
+
+*Note: Below are the libraries used in this project, you can install them manually if there's some problem with npm install:
+1. "react": "^16.2.0",
+
+2. "react-dom": "^16.2.0"
+
+3. "react-icons": "^2.2.7"
+
+4. "react-modal": "^3.1.13"
+
+5. "react-redux": "^5.0.6"
+
+6. "react-router-dom": "^4.2.2"
+
+7. "react-scripts": "1.1.0"
+
+8. "react-scroll": "^1.7.6"
+
+9. "redux": "^3.7.2"
+
+10. "redux-thunk": "^2.2.0"
 
 ### Start project
 1. Navigate to 'readable' folder in terminal
@@ -122,25 +143,32 @@ npm start
 
 ## Project files
 ```bash
-├── CONTRIBUTING.md
 ├── README.md - This file.
-├── SEARCH_TERMS.md # The whitelisted short collection of available search terms for you to use with your app.
 ├── package.json # npm package manager file. It's unlikely that you'll need to modify this.
 ├── public
 │   ├── favicon.ico # React Icon, You may change if you wish.
 │   └── index.html # DO NOT MODIFY
 └── src
-    ├── icons # Helpful images for your app. Use at your discretion.
-    │   ├── add.svg
-    │   ├── arrow-back.svg
-    │   └── arrow-drop-down.svg
-    ├── App.js # This is the root the app, controlling the main page, search page, api calls, state and all the child components.
-    ├── ListBooks.js # Rendering main page, containing 3 shelves.
-    ├── Shelf.js # Rendering shelf component to display list of books in this shelf. Used in main page (ListBook.js)
-    ├── SearchBooks.js # Rendering search book page.
-    ├── Footer.js # Rendering personalized footer element.
-    ├── App.css # Styles for the app.
-    ├── App.test.js # Used for testing. Provided with Create React App. Testing is encouraged, but not required.
-    ├── BooksAPI.js # A JavaScript API for the provided Udacity backend.
-    ├── index.css # Global styles. You probably won't need to change anything here.
-    └── index.js # You should not need to modify this file. It is used for DOM rendering only.
+    ├── actions
+    │   └── index.js # stores all the redux actions.
+    └── assets
+        ├──images # images for the app
+        │   ├── empty.png
+        │   └── logo.icon
+        └──App.css # Styles for the app
+    └── components
+        ├── App.js # This is the root the app, controlling all the pages/routes.
+        ├── CreatePost.js # Create post modal
+        ├── EditComment.js # Edit comment modal
+        ├── EditPost.js # Edit post modal
+        ├── Footer.js # Rendering personalized footer element.
+        ├── Post.js # Rendering single post
+        ├── PostDetails.js # Rendering the post details page (/:category/:post_id)
+        ├── PostList.js # Rendering list of posts, used by root page and category page (/:category)
+        └── SortMethod.js # Storing all the sort methods, and used by post list page to sort the posts
+    └── reducers
+        └── index.js # stores all the redux reducers.
+    └── utils
+        ├── helpers.js # storing all the utils / helpers method
+        └── api.js # A JavaScript API for the provided Udacity backend.
+    └── index.js # DOM rendering. Controlling redux middleware and router
