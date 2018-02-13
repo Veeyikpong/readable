@@ -1,6 +1,7 @@
-import React, { Component } from 'react';
+import React from 'react';
 import '../assets/App.css';
 import EditComment from './EditComment.js'
+import EditPost from './EditPost.js'
 import {connect} from 'react-redux'
 import {fetchPostByID, fetchCommentsByPost, addComment, deleteComment} from '../actions'
 import Upvote from 'react-icons/lib/fa/thumbs-o-up'
@@ -10,8 +11,9 @@ import HomeIcon from 'react-icons/lib/fa/home'
 import DeleteIcon from 'react-icons/lib/fa/close'
 import EditIcon from 'react-icons/lib/fa/edit'
 import {Link} from 'react-router-dom'
-import {votePost, voteComment} from '../actions'
+import {votePost, voteComment, deletePost} from '../actions'
 import Modal from 'react-modal'
+import {withRouter} from 'react-router-dom'
 
 const uuidv1 = require('uuid/v1')
 var Scroll = require('react-scroll');
@@ -134,17 +136,38 @@ class PostDetails extends React.Component {
     }))
   }
 
+  openEditPostModal = () => {
+      this.setState(() => ({
+        editPostModalOpen: true,
+      }))
+    }
+
+  closeEditPostModal = () =>{
+    this.setState(() => ({
+      editPostModalOpen: false,
+    }))
+  }
+
+  deletePost = (postID) => {
+      var x = window.confirm('Confirm to delete post?')
+
+      if(x){
+        this.props.deletePost(postID)
+        this.props.history.push('/')
+      }
+  }
+
   render() {
 
-    const {editCommandModalOpen, activeComment} = this.state
+    const {editCommandModalOpen, activeComment, editPostModalOpen} = this.state
     let {comments, posts} = this.props
 
-    //if can get post from state
     if(this.props.post){
       posts = this.props.post
     }
 
-    if(posts){
+    {console.log(posts)}
+    if(posts && posts.title){
         return (
           <div id="postDetails">
             <div className="homeIcon">
@@ -152,6 +175,8 @@ class PostDetails extends React.Component {
             </div>
 
             <div className="header">
+              <DeleteIcon size={25} className="deleteIcon" onClick={()=>{this.deletePost(posts.id)}}/>
+              <EditIcon size={23} className="editIcon" onClick={()=>{this.openEditPostModal()}}/>
               <span className="author">{posts.author}</span>
               <span className="content"> posted in </span>
               <span className="category"> {posts.category} </span>
@@ -186,18 +211,40 @@ class PostDetails extends React.Component {
             </div>
 
             <Modal
-            className='editCommentModal'
-            overlayClassName='editCommentOverlay'
-            isOpen={editCommandModalOpen}
-            onRequestClose={this.closeEditCommentModal}
-            contentLabel='Modal'>
+              className='editCommentModal'
+              overlayClassName='editCommentOverlay'
+              isOpen={editCommandModalOpen}
+              onRequestClose={this.closeEditCommentModal}
+              contentLabel='Modal'>
 
-            <EditComment key={activeComment.id} comment={activeComment} closeEditCommentModal={this.closeEditCommentModal}/>
+              <EditComment key={activeComment.id} comment={activeComment} closeEditCommentModal={this.closeEditCommentModal}/>
+            </Modal>
+
+             <Modal
+              className='editPostModal'
+              overlayClassName='editPostOverlay'
+              isOpen={editPostModalOpen}
+              onRequestClose={this.closeEditPostModal}
+              contentLabel='Modal'>
+
+              <EditPost post={posts} closeEditPostModal={this.closeEditPostModal}/>
             </Modal>
           </div>
-        );}
+        );
+    }
     else{
-      return(<h1>empty</h1>)
+      return(
+        <div>
+          <div className="homeIcon">
+            <span className="home"><Link to={"/"}><HomeIcon size={30}/>HOME</Link></span>
+          </div>
+          <div id="error-Message">
+            <p>
+              Oops. This post cannot be found or has been deleted.
+            </p>
+          </div>
+        </div>
+      )
     }
   }
 }
@@ -229,7 +276,10 @@ const mapDispatchToProps = (dispatch) => {
     deleteComment : (commentID) => {
       dispatch(deleteComment(commentID));
     },
+    deletePost : (postID) => {
+      dispatch(deletePost(postID));
+    }
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(PostDetails);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(PostDetails));

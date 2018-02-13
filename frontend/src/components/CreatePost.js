@@ -71,12 +71,12 @@ class CreatePost extends React.Component{
 				category: postCategory,
 			}
 
-			this.props.createPost(data)
+			this.props.createPost(data);
 
-			window.alert("Post created successfully!")
+			window.alert("Post created successfully!");
 			closeCreatePostModal();
     }else{
-  		window.alert(errorMessage)
+  		window.alert(errorMessage);
     }
 	}
 

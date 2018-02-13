@@ -32,17 +32,30 @@ class EditPost extends React.Component{
 	savePost=(post)=>{
 		const {postTitle, postBody} = this.state
 		const {closeEditPostModal} = this.props
+		let errorMessage = ''
 
-		const data = {
-			title: postTitle,
-			body: postBody,
-		}
+		if(postTitle.length<=0){
+  		errorMessage = errorMessage + 'Post title cannot be empty.\n';
+  	}
 
-		this.props.editPost(post.id, data)
+  	if(postBody.length<=0){
+  		errorMessage = errorMessage + 'Post message cannot be empty.\n';
+  	}
 
-		window.alert("Post updated successfully!")
+  	if(errorMessage === ''){
+  		const data = {
+				title: postTitle,
+				body: postBody,
+			}
 
-		closeEditPostModal();
+			this.props.editPost(post.id, data)
+
+			window.alert("Post updated successfully!");
+
+			closeEditPostModal();
+  	} else {
+  		window.alert(errorMessage);
+  	}
 	}
 
 	render(){

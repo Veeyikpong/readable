@@ -5,7 +5,7 @@ function posts(state=[],action){
     case 'GET_ALL_POSTS':
       return action.posts;
     case 'FETCH_POSTS_BY_CATEGORY':
-      return action.posts;
+      return action.post;
     case 'FETCH_POST_BY_ID':
       return [...state,...state.filter(post=>post.id===action.post)]
     case 'VOTE_POST':

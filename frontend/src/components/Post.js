@@ -78,8 +78,8 @@ class Post extends React.Component {
         </div>
 
         <Modal
-          className='createPostModal'
-          overlayClassName='createPostOverlay'
+          className='editPostModal'
+          overlayClassName='editPostOverlay'
           isOpen={editPostModalOpen}
           onRequestClose={this.closeEditPostModal}
           contentLabel='Modal'>
