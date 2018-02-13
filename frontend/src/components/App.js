@@ -65,7 +65,7 @@ class App extends React.Component {
           <Route exact path = "/:category" render={({match})=>
           (
             <div>
-              <span className="categoryPlaceholder">Categories</span>
+              <span className="categoryPlaceholder">Category</span>
                 <select className='select-category' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
                   <option className="select-category-option" value="/">ALL</option>
                   {categories && categories.length>0 && categories.map((category)=>(
@@ -80,7 +80,7 @@ class App extends React.Component {
           <Route exact path = "/" render={()=>
           (
             <div>
-             <span className="categoryPlaceholder">Categories</span>
+             <span className="categoryPlaceholder">Category</span>
               <select className='select-category' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
                 <option className="select-category-option" value="/">ALL</option>
                 {categories && categories.length>0 && categories.map((category)=>(
