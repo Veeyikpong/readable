@@ -1,7 +1,7 @@
 import React from 'react';
-import {editComment} from '../actions'
 import {connect} from 'react-redux'
 import {createPost} from '../actions'
+import DeleteIcon from 'react-icons/lib/fa/close'
 
 const uuidv1 = require('uuid/v1')
 
@@ -47,19 +47,22 @@ class CreatePost extends React.Component{
 
 		if(postAuthor.length<=0){
 			errorMessage = errorMessage + 'Author cannot be empty.\n';
-      	}  
-      	if(postTitle.length<=0){
-      		errorMessage = errorMessage + 'Post title cannot be empty.\n';
-      	}  
-      	if(postBody.length<=0){
-      		errorMessage = errorMessage + 'Post message cannot be empty.\n';
-      	}  
-      	if(postCategory.length<=0){
-      		errorMessage = errorMessage + 'Please select a category\n';
-      	} 
+    }
 
-      	if(errorMessage === ''){
-      		const data = {
+  	if(postTitle.length<=0){
+  		errorMessage = errorMessage + 'Post title cannot be empty.\n';
+  	}
+
+  	if(postBody.length<=0){
+  		errorMessage = errorMessage + 'Post message cannot be empty.\n';
+  	}
+
+  	if(postCategory.length<=0){
+  		errorMessage = errorMessage + 'Please select a category\n';
+  	}
+
+  	if(errorMessage === ''){
+  		const data = {
 				id: uuidv1(),
 				timestamp: Date.now(),
 				title: postTitle,
@@ -72,32 +75,34 @@ class CreatePost extends React.Component{
 
 			window.alert("Post created successfully!")
 			closeCreatePostModal();
-      	}else{
-      		window.alert(errorMessage)
-      	}
+    }else{
+  		window.alert(errorMessage)
+    }
 	}
 
 	render(){
-		const {categories} = this.props
+		const {categories, closeCreatePostModal} = this.props
+
 		return(
-	        <div id="createPost">
-		    	<input type="text" placeholder="Author" onChange={this.updateAuthor}/>
-		    	<input type="text" placeholder="Title" onChange={this.updateTitle}/>
-		    	<input type="text" placeholder="Message" onChange={this.updateBody}/>
-		    	<select onChange={(event)=>{this.updateCategory(event)}}>
-					<option className="selectCategoryOption" value="">Select a category</option>
+      <div id="createPost">
+      	<DeleteIcon size={25} className="deleteIcon" onClick={()=>{closeCreatePostModal()}}/>
+	    	<input type="text" placeholder="Author" onChange={this.updateAuthor}/>
+	    	<input type="text" placeholder="Title" onChange={this.updateTitle}/>
+	    	<input type="text" placeholder="Message" onChange={this.updateBody}/>
+	    	<select onChange={(event)=>{this.updateCategory(event)}}>
+					<option className="select-category-option" value="">Select a category</option>
 					{categories && categories.length>0 && categories.map((category)=>(
-						<option className="selectCategoryOption" key={category.path} value={category.path}>{category.name}</option>
+						<option className="select-category-option" key={category.path} value={category.path}>{category.name}</option>
 					))}
-	            </select>
-		        <button className="button" onClick={()=>{this.createPost()}}>Create</button>
-	      	</div>
+        </select>
+	       <button className="button" onClick={()=>{this.createPost()}}>Create</button>
+    	</div>
 		);
 	}
 }
- 
+
 const mapStateToProps = (state) => {
-  return { 
+  return {
     categories:state.categories,
   }
 }

@@ -11,7 +11,7 @@ import EditIcon from 'react-icons/lib/fa/edit'
 import EditPost from './EditPost.js'
 import Modal from 'react-modal'
 
-class Post extends Component {
+class Post extends React.Component {
 	state={
 		editPostModalOpen: false,
 	}
@@ -21,24 +21,24 @@ class Post extends Component {
     	option: 'upVote'
     }
     this.props.votePost(postID,data)
-  }	
+  }
 
   downvote = (postID) => {
   	const data = {
     	option: 'downVote'
     }
     this.props.votePost(postID,data)
-  }	
+  }
 
   deletePost = (postID) => {
   	var x = window.confirm('Confirm to delete post?')
 
-  	if(x === true){
+  	if(x){
   		this.props.deletePost(postID)
   	}
   }
 
-openEditPostModal = () => {
+  openEditPostModal = () => {
     this.setState(() => ({
       editPostModalOpen: true,
     }))
@@ -56,42 +56,43 @@ openEditPostModal = () => {
 
     return (
     	<div id="post">
-        	<div className="header">
-        		<DeleteIcon size={25} className="deleteIcon" onClick={()=>{this.deletePost(post.id)}}/>
-        		<EditIcon size={23} className="editIcon" onClick={()=>{this.openEditPostModal()}}/>
-		    	<span className="author">{post.author}</span>
-		    	<span className="content"> posted in </span>
-		    	<span className="category"> {post.category} </span>
-	    	</div>
+        <div className="header">
+          <DeleteIcon size={25} className="deleteIcon" onClick={()=>{this.deletePost(post.id)}}/>
+          <EditIcon size={23} className="editIcon" onClick={()=>{this.openEditPostModal()}}/>
+          <span className="author">{post.author}</span>
+          <span className="content"> posted in </span>
+          <span className="category"> {post.category} </span>
+        </div>
+
 	    	<div className="body">
 	    		<Link to={"/" + post.category + "/" + post.id} className="title">
-                    <h3>{post.title}</h3>
-                </Link>
-		        <p className="description">{post.body}</p>
-		        <Upvote size="30" className="vote" onClick={()=>{this.upvote(post.id)}}/>
-		        <Downvote size="30" className="vote" onClick={()=>{this.downvote(post.id)}}/>
-		        <p className="votescore">{post.voteScore} Votes</p>
-		        <p className="comments">{post.commentCount} comments</p>
-		        <p className="timestamp">{timeConverter(post.timestamp)}</p>
-	        </div>
-	        <p/>
-	        <Modal
-                className='createPostModal'
-                overlayClassName='createPostOverlay'
-                isOpen={editPostModalOpen}
-                onRequestClose={this.closeEditPostModal}
-                contentLabel='Modal'>
+            <h3>{post.title}</h3>
+          </Link>
 
-                <EditPost post={post} closeEditPostModal={this.closeEditPostModal}/>
-          	</Modal>
-      	</div>
+	        <p className="description">{post.body}</p>
+	        <Upvote size="30" className="vote" onClick={()=>{this.upvote(post.id)}}/>
+	        <Downvote size="30" className="vote" onClick={()=>{this.downvote(post.id)}}/>
+	        <p className="votescore">{post.voteScore} Votes</p>
+	        <p className="comments">{post.commentCount} comments</p>
+	        <p className="timestamp">{timeConverter(post.timestamp)}</p>
+        </div>
+
+        <Modal
+          className='createPostModal'
+          overlayClassName='createPostOverlay'
+          isOpen={editPostModalOpen}
+          onRequestClose={this.closeEditPostModal}
+          contentLabel='Modal'>
+
+          <EditPost post={post} closeEditPostModal={this.closeEditPostModal}/>
+        </Modal>
+    	</div>
     );
   }
 }
 
-
 const mapStateToProps = (state) => {
-  return { 
+  return {
     posts: state.posts
   }
 }

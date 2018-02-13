@@ -6,27 +6,27 @@ import PostDetails from './PostDetails.js'
 import {fetchAllPosts,fetchAllCategories,fetchPostsByCategory} from '../actions'
 import {connect} from 'react-redux'
 import {Route, withRouter } from 'react-router-dom';
+import Footer from './Footer.js'
 
-class App extends Component {
+class App extends React.Component {
 
   state = {
     posts: [],
     categories: [],
-    selectedCategory:'/', //all 
+    selectedCategory:'/', //all
   }
 
-  componentWillMount()
-  { 
+  componentWillMount(){
      this.props.fetchAllPosts();
      this.props.fetchAllCategories();
   }
 
-  filterPostByCategory(category){
+  filterPostByCategory = (category) => {
     const {posts} = this.props
     return posts.filter(post => post.category === category)
   }
 
-  findPostByID(postID){
+  findPostByID = (postID) => {
     const {posts} = this.props
 
     if(posts.length>0){
@@ -36,15 +36,15 @@ class App extends Component {
     return null;
   }
 
-  updateDropdownValue= (category) =>{
+  updateDropdownValue = (category) => {
     this.setState(() => ({
       selectedCategory: category,
     }))
-  } 
+  }
 
-  redirect(history, event){
-      this.updateDropdownValue(event.target.value)
-      history.push(event.target.value)
+  redirect = (history, event) => {
+    this.updateDropdownValue(event.target.value)
+    history.push(event.target.value)
   }
 
   render() {
@@ -53,52 +53,58 @@ class App extends Component {
 
     return (
       <div className="App">
+
         <div id="header" className="container">
           <div id="logo">
             <img src={logo} className="App-logo" alt="logo" />
             <h1>Readable</h1>
           </div>
         </div>
-        <div id="body" className="container">         
+
+        <div id="body" className="container">
           <Route exact path = "/:category" render={({match})=>
           (
             <div>
-            <span className="categoryPlaceholder">Categories</span>
-              <select className='selectCategory' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
-                <option className="selectCategoryOption" value="/">ALL</option>
-              {categories && categories.length>0 && categories.map((category)=>(
-                <option className="selectCategoryOption" key={category.path} value={category.path}>{category.name}</option>
-              ))}
-              </select>
-              <PostList posts={this.filterPostByCategory(match.params.category)} category={match.params.category} updateDropdownValue={this.updateDropdownValue}
-            />
+              <span className="categoryPlaceholder">Categories</span>
+                <select className='select-category' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
+                  <option className="select-category-option" value="/">ALL</option>
+                  {categories && categories.length>0 && categories.map((category)=>(
+                    <option className="select-category-option" key={category.path} value={category.path}>{category.name}</option>
+                  ))}
+                </select>
+                <PostList posts={this.filterPostByCategory(match.params.category)} category={match.params.category} updateDropdownValue={this.updateDropdownValue}
+              />
             </div>
           )}/>
 
-          <Route exact path = "/" render={()=>(
+          <Route exact path = "/" render={()=>
+          (
             <div>
              <span className="categoryPlaceholder">Categories</span>
-              <select className='selectCategory' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
-                <option className="selectCategoryOption" value="/">ALL</option>
-              {categories && categories.length>0 && categories.map((category)=>(
-                <option className="selectCategoryOption" key={category.path} value={category.path}>{category.name}</option>
-              ))}
+              <select className='select-category' onChange={(e)=>this.redirect(this.props.history, e)} value={selectedCategory}>
+                <option className="select-category-option" value="/">ALL</option>
+                {categories && categories.length>0 && categories.map((category)=>(
+                  <option className="select-category-option" key={category.path} value={category.path}>{category.name}</option>
+                ))}
               </select>
               <PostList posts={posts} updateDropdownValue={this.updateDropdownValue}/>
-              </div>
-            )}
-          />
+            </div>
+          )}/>
 
-          <Route exact path = "/:category/:postID" render={({match})=>(
-            <PostDetails {...match} post={this.findPostByID(match.params.postID)} updateDropdownValue={this.updateDropdownValue}/>)}/>
+          <Route exact path = "/:category/:postID" render={({match})=>
+          (
+            <PostDetails {...match} post={this.findPostByID(match.params.postID)} updateDropdownValue={this.updateDropdownValue}/>
+          )}/>
         </div>
+
+        <Footer/>
       </div>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return { 
+  return {
     posts: state.posts,
     categories:state.categories
   }
@@ -111,7 +117,7 @@ const mapDispatchToProps = (dispatch) => {
     },
     fetchAllCategories : () => {
       dispatch(fetchAllCategories());
-    }, 
+    },
     fetchPostsByCategory : (event) => {
       dispatch(fetchPostsByCategory(event.target.value));
     },

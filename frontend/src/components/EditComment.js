@@ -25,11 +25,11 @@ class EditComment extends React.Component{
 		const {commentMessage} = this.state
 		const {comment,closeEditCommentModal} = this.props
 
-  		if(commentMessage.length<=0){
-        	window.alert('Comment message cannot be empty.')
-      	}
-      	else{
-      		const data = {
+		if(commentMessage.length<=0){
+    	window.alert('Comment message cannot be empty.')
+  	}
+  	else{
+  		const data = {
 				timestamp: Date.now(),
 				body: commentMessage,
 			}
@@ -39,7 +39,7 @@ class EditComment extends React.Component{
 			window.alert("Comment updated successfully!")
 
 			closeEditCommentModal();
-      	}
+    }
 	}
 
 	render(){
@@ -52,12 +52,11 @@ class EditComment extends React.Component{
 				<p className="author">Author: {comment.author}</p>
 				<input type='text' className = "commentInput" defaultValue={this.props.comment.body} id="commentMessage" onChange={this.updateCommentMessage}/>
 				<br/>
-				<button className="button" onClick={()=>{this.saveComment()}}>Save</button>			
+				<button className="button" onClick={()=>{this.saveComment()}}>Save</button>
 			</div>
 		);
 	}
 }
- 
 
 const mapDispatchToProps = (dispatch) => {
   return {

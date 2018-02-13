@@ -58,10 +58,10 @@ function posts(state=[],action){
           return post;
         }
 
-       return {
-            ...post,
-            title: action.post.title,
-            body: action.post.body
+        return {
+          ...post,
+          title: action.post.title,
+          body: action.post.body
         }
       });
     default:
@@ -74,7 +74,7 @@ function categories(state=[],action){
     case 'GET_ALL_CATEGORIES':
       return action.categories.categories;
     default:
-      return state; 
+      return state;
   }
 }
 
@@ -83,11 +83,11 @@ function sortMethod(state='timestamp_asc',action){
     case 'CHANGE_SORT_METHOD':
       return action.sortMethod
     default:
-      return state; 
+      return state;
   }
 }
 
-function comments(state=[],action){  
+function comments(state=[],action){
   switch(action.type){
     case 'GET_COMMENTS':
        return action.comments;
@@ -119,9 +119,9 @@ function comments(state=[],action){
           return c;
         }
 
-       return {
-            ...c,
-            body: action.newMessage
+        return {
+        ...c,
+        body: action.newMessage
         }
       });
     default:
@@ -130,7 +130,7 @@ function comments(state=[],action){
 }
 
 export default combineReducers({
-  posts,  
+  posts,
   categories,
   sortMethod,
   comments

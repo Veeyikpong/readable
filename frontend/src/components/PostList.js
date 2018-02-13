@@ -7,7 +7,7 @@ import SortMethod from './SortMethod.js'
 import CreatePost from './CreatePost.js'
 import Modal from 'react-modal'
 
-class PostList extends Component {
+class PostList extends React.Component {
 
   state = {
       posts: [],
@@ -16,6 +16,8 @@ class PostList extends Component {
   }
 
   componentWillMount(){
+    Modal.setAppElement('body');
+
     //this is to handle if user go directly to the category link, should update the parent dropdown value correctly
     const {category, updateDropdownValue} = this.props
     if(category){
@@ -25,8 +27,7 @@ class PostList extends Component {
     }
   }
 
-  openCreatePostModal = () => { 
-    console.log('open')
+  openCreatePostModal = () => {
     this.setState(() => ({
       createPostModalOpen: true,
     }))
@@ -77,21 +78,21 @@ class PostList extends Component {
               <SortMethod/>
               {
                 posts.map((post)=>(
-                   <Post key={post.id} post={post}/>
+                <Post key={post.id} post={post}/>
                 ))
-              }        
+              }
             </div>
           ):
           (
-             <div id="errorMessage">
+            <div id="error-Message">
               <img src={emptyIcon} className="emptyIcon" alt="empty"/>
               <p>
-                Oops. There is currently no posts in this category.
+              Oops. There is currently no posts in this category.
               </p>
             </div>
           )
         }
-      
+
         <Modal
           className='createPostModal'
           overlayClassName='createPostOverlay'
@@ -106,9 +107,8 @@ class PostList extends Component {
   }
 }
 
-
 const mapStateToProps = (state) => {
-  return { 
+  return {
     sortMethod: state.sortMethod
   }
 }
